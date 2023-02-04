@@ -1,9 +1,25 @@
 import React from 'react'
 import Link from 'next/link'
+import { signIn, useSession } from 'next-auth/react'
+import { toast } from 'react-toastify'
 import {useForm} from 'react-hook-form'
 import Layout from '../components/Layout'
+import {getError} from '../utils/error'
+import { useEffect } from 'react';
+import {useRouter} from 'next/router'
 
 const LoginScreen = () => {
+
+    const { data: session } = useSession();
+    
+    const router = useRouter();
+    const { redirect } = router.query;
+    
+    useEffect(() => {
+        if (session?.user) {
+            router.push(redirect || '/')
+        }
+    },[router,session,redirect])
 
     const {
         handleSubmit,
@@ -11,8 +27,19 @@ const LoginScreen = () => {
         formState: { errors },
     } = useForm();
 
-    const submitHandler = ({ email, password }) => {
-        console.log(email, password);
+    const submitHandler = async ({ email, password }) => {
+        try {
+            const res = await signIn('credentials',{
+                redirect: false,
+                email,
+                password
+            });
+            if (res.error) {
+                toast.error(res.error);
+            }
+        } catch (error) {
+            toast.error(getError(error));
+        }
     }
 
   return (
@@ -48,8 +75,8 @@ const LoginScreen = () => {
             {...register("password", {
               required: "Please enter password",
               minLength: {
-                value: 6,
-                message: "Password must be at least 6 characters",
+                value: 5,
+                message: "Password must be at least 5 characters",
               },
             })}
             className="w-full"

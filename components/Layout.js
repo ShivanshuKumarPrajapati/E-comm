@@ -3,6 +3,9 @@ import Head from "next/head";
 import Link from "next/link";
 
 import { Store } from "../utils/Store";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useSession } from "next-auth/react";
 
 const Layout = ({ title, children }) => {
 
@@ -10,6 +13,8 @@ const Layout = ({ title, children }) => {
     const { cartItems } = state.cart;
     const [cartItemsCount,setCartItemsCount] = useState(0);
     
+    const {status, data:session} = useSession();
+
   useEffect(() => {
       setCartItemsCount(cartItems.reduce((a, c) => a + c.quantity, 0))
     },[cartItems])
@@ -22,6 +27,7 @@ const Layout = ({ title, children }) => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
+        <ToastContainer position="bottom-center" limit={1} />
         <div className="flex min-h-screen flex-col justify-between">
           <header>
             <nav className="flex h-12 items-center px-4 justify-between shadow-md">
@@ -30,16 +36,24 @@ const Layout = ({ title, children }) => {
               </Link>
               <div>
                 <Link href="/cart" className="p-2">
-                Cart
-                {cartItemsCount> 0 && (
+                  Cart
+                  {cartItemsCount > 0 && (
                     <span className="ml-1 bg-red-500 text-white rounded-full px-2 py-1 text-sm font-bold">
-                        {cartItemsCount}
+                      {cartItemsCount}
                     </span>
-                ) }
+                  )}
                 </Link>
-                <Link href="/login" className="p-2">
-                  Login
-                </Link>
+                {
+                  status === "loading" ? (
+                  "Loading..."
+                ) : session?.user ? (
+                  session.user.name
+                ) : (
+                  <Link href="/login" className="p-2">
+                    Login
+                  </Link>
+                  )
+                }
               </div>
             </nav>
           </header>

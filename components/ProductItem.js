@@ -5,7 +5,7 @@ import Link  from 'next/link';
 const ProductItem = ({product}) => {
   return (
     <div className="card">
-      <Link href={`/product/${product.slug}`} passhref>
+      <Link href={`/product/${product.slug}`} passhref="true">
         <img
           src={product.image}
           alt={product.name}
