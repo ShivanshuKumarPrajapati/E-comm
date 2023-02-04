@@ -96,7 +96,7 @@ const CartLayout = () => {
                                           </div>
                                       </li>
                                       <li>
-                                          <button onClick={ () => router.push('/shopping') }
+                                          <button onClick={ () => router.push('login?redirect=/shipping') }
                                           className="primary-button w-full"
                                           >Check Out</button>
                                       </li>
