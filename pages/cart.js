@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 import Layout from '../components/Layout';
 import { Store } from '../utils/Store';
 import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 
 
 const CartLayout = () => {
@@ -18,9 +19,16 @@ const CartLayout = () => {
         dispatch({type:'CART_REMOVE_ITEM', payload: item});
     }
 
-    const updateCartHandler = (item, qty) => {
+    const updateCartHandler = async(item, qty) => {
         const quantity = Number(qty);
-        dispatch({type:'CART_ADD_ITEM', payload: {...item, quantity}});
+        const data = await fetch(`/api/products/${item._id}`);
+
+        if (data.countInStock < quantity) {
+            return toast.error('Sorry. Product is out of stock');
+        }
+
+        dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, quantity } });
+        toast.success('Product updated in the cart');
     }
   return (
       <Layout>

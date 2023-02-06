@@ -24,26 +24,28 @@ const ShippingScreen = () => {
 
   useEffect(() => {
 
+    if(shippingAddress){
     setValue('fullName', shippingAddress.fullName);
     setValue('address', shippingAddress.address);
     setValue('city', shippingAddress.city);
     setValue('postalCode', shippingAddress.postalCode);
     setValue('country', shippingAddress.country);
+    }
 
   }, [setValue, shippingAddress]);
 
-  const submitHandler = ({ fullName, address, city, postalcode, country }) => {
+  const submitHandler = ({ fullName, address, city, postalCode, country }) => {
 
     dispatch({
       type: 'SAVE_SHIPPING_ADDRESS',
-      payload: { fullName, address, city, postalcode, country }
+      payload: { fullName, address, city, postalCode, country }
     });
 
     Cookies.set(
       'cart',
-      JSON.STRINGIFY({
+      JSON.stringify({
         ...cart,
-        shippingAddress: { fullName, address, city, postalcode, country }
+        shippingAddress: { fullName, address, city, postalCode, country }
       })
     );
 
