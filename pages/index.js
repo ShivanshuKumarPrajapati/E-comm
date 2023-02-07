@@ -16,8 +16,10 @@ export default function Home({ products }) {
         const existItem = cart.cartItems.find((x) => x.slug === product.slug);
         const quantity = existItem ? existItem.quantity + 1 : 1;
       
-        const data = await fetch(`/api/products/${product._id}`);
+        const res = await fetch(`/api/products/${product._id}`);
       
+        const data = await res.json();
+     
         if (data.countInStock < quantity) {
         toast.error('Sorry. Product is out of stock');
           return;

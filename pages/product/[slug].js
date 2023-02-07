@@ -15,12 +15,12 @@ function ProductScreen({product}) {
         const existItem = state.cart.cartItems.find((x) => x.slug === product.slug);
         const quantity = existItem ? existItem.quantity + 1 : 1;
 
-      const data = await fetch(`/api/products/${product._id}`);
+        const res = await fetch(`/api/products/${product._id}`);
       
-        console.log(data);
-        console.log('qty ',quantity);
+      const data = await res.json();
+      
         if (data.countInStock < quantity) {
-        toast.error('Sorry. Product is out of stock');
+          toast.error('Sorry. Product is out of stock');
           return;
         }
 
@@ -29,7 +29,7 @@ function ProductScreen({product}) {
     }
 
     if (!product) {
-         return <Layout title="Produt Not Found">Produt Not Found</Layout>;
+         return <Layout title="Product Not Found">Product Not Found</Layout>;
     }
 
 
