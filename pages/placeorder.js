@@ -73,7 +73,6 @@ const PlaceOrderScreen = () => {
             console.log("skjfdlk");
         }
         catch (err) {
-            console.log("khherlj jrke")
             setLoading(false);
             console.log(getError(err));
             toast.error(getError(err))
