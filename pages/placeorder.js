@@ -68,13 +68,10 @@ const PlaceOrderScreen = () => {
             }));
 
             const data = await res.json();
-            console.log('hejelkrj');
             router.push(`/order/${data._id}`);
-            console.log("skjfdlk");
         }
         catch (err) {
             setLoading(false);
-            console.log(getError(err));
             toast.error(getError(err))
         }
     }

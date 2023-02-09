@@ -21,11 +21,9 @@ function reducer(state, action) {
 
 
 const OrderScreen = () => {
-
-    const query = useRouter();
-
-    const orderId = query;
-
+  
+    const {query} = useRouter(); 
+    const orderId = query.id;
     const [{
         loading, error, order
     }, dispatch] = useReducer(reducer, {
@@ -39,8 +37,9 @@ const OrderScreen = () => {
             try {
                 dispatch({ type: 'FETCH_REQUEST' });
                 const res = await fetch(`/api/orders/${orderId}`);
-                const data = await res.json();
-                dispatch({ type: 'FETCH_SUCCESS', payload: data });
+              const data = await res.json();
+              
+              dispatch({ type: 'FETCH_SUCCESS', payload: data });
             }
             catch (err) {
                 dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
@@ -69,7 +68,7 @@ const OrderScreen = () => {
 
   return (
     <Layout title={`Order ${orderId}`}>
-      <h1 className="mb-4 text-xl">{`Order ${orderId}`}</h1>
+      <h1 className="mb-4 text-lg font-bold">{`Order ID: ${orderId}`}</h1>
       {loading ? (
         <div>Loading...</div>
       ) : error ? (

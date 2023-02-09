@@ -4,20 +4,22 @@ import db from "../../../utils/db";
 
 const handler = async(req,  res) => {
 
-    const session = getSession({req});
-
-    console.log("req...",req.body);
+    const session = await getSession({ req });
+    
     if(!session)
     return res.status(400).send('SignIn required');
-
-    const{user} = session;
+    const userId = session._id;
 
     await db .connect();
-    const newOrder = new Order({
-        ...req.body,
-        user: user._id
-    });
 
+    const data =  req.body;
+    const newItem = JSON.parse(data);
+
+    const newOrder = new Order({
+        ...newItem,
+        user : userId
+    });
+    
     const order = await newOrder.save();
     res.status(201).send(order);
 
