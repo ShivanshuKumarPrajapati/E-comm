@@ -40,7 +40,7 @@ const Layout = ({ title, children }) => {
         <div className="flex min-h-screen flex-col justify-between">
           <header>
             <nav className="flex h-12 items-center px-4 justify-between shadow-md">
-              <Link href="/" className="text-lg font-bold">
+              <Link href="/" className="text-xl font-bold">
                 amazona
               </Link>
               <div>

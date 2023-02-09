@@ -92,7 +92,7 @@ const LoginScreen = () => {
         </div>
         <div className="mb-4 ">
           Don&apos;t have an account? &nbsp;
-          <Link href="/register" className='text-blue-600'>Register</Link>
+          <Link href={`/register?redirect=${redirect || '/'}`} className='text-blue-600'>Register</Link>
         </div>
       </form>
     </Layout>
