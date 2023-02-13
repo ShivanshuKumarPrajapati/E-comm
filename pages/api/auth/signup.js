@@ -1,12 +1,13 @@
 import User from "../../../models/User";
 import db from "../../../utils/db";
-import { bcrypt } from 'bcryptjs';
+import bcrypt from 'bcryptjs';
 
 const handler = async (req, res) => {
     if (req.method != 'POST')
         return;
     
-    const { name, email, password } = req.body;
+    const data = JSON.parse(req.body);
+    const { name, email, password } = data;
 
     if (!name || !email ||
         !email.includes('@')

@@ -36,11 +36,11 @@ const Register = () => {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-                body: {
+                body: JSON.stringify({
                     name,
                     email,
                     password
-                }
+                })
             });
             
             const result = await signIn('credentials', {
