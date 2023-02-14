@@ -6,7 +6,8 @@ const handler = async (req, res) => {
     if (!session)
         return res.status(401).send('signin required');
 
-    res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
+    res.json(process.env.PAYPAL_CLIENT_ID || 'sb');
+    res.send();
 }
 
 export default handler;

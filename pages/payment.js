@@ -17,7 +17,6 @@ const PaymentScreen = () => {
   const { shippingAddress, paymentMethod } = cart; 
 
   const submitHandler = (e) => {
-    console.log('submitHandler')
     e.preventDefault();
 
     if (!selectedPaymentMethod) {

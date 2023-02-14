@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { getError } from '../../utils/error';
 import Image from 'next/image';
 import Link from 'next/link';
-import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
+import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { toast } from 'react-toastify';
 
 function reducer(state, action) {
@@ -51,7 +51,7 @@ const OrderScreen = () => {
                 const res = await fetch(`/api/orders/${orderId}`);
               const data = await res.json();
               
-              dispatch({ type: 'FETCH_SUCCESS', payload: data });
+                dispatch({ type: 'FETCH_SUCCESS', payload: data });   
             }
             catch (err) {
                 dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
@@ -67,7 +67,8 @@ const OrderScreen = () => {
       }
       else {
         const loadPaypalScript = async () => {
-          const { data: clientId } = await fetch('/api/keys/paypal');
+          const res = await fetch('/api/keys/paypal');
+          const clientId = await res.json();
           paypalDispatch({
             type: 'resetOptions',
             value: {
@@ -246,12 +247,13 @@ const OrderScreen = () => {
                             <div>Loading...</div>
                           ) :
                             (
-                              <div className='w-full'>
+                              <div className='w-full mt-5'>
                                 <PayPalButtons
                                   createOrder={ createOrder }
                                   onApprove={ onApprove }
                                   onError={ onError }
-                                />
+                                >
+                                  </PayPalButtons>
                               </div>
                             )
                         }
