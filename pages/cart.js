@@ -36,10 +36,10 @@ const CartLayout = () => {
           {
               cartItems.length === 0 ? (
                   <div>
-                      <p>
-                      Cart is empty
-                      </p>
-                      <Link href="/" classname="primary-button bg-red-500">Go Shopping</Link>
+                      <span>
+                      Cart is empty. 
+                      </span>
+                      <Link href="/" className="text-blue-600"> Go Shopping</Link>
                   </div>
               ) : (
                        <div className="grid md:grid-cols-4 md:gap-5">
@@ -95,7 +95,7 @@ const CartLayout = () => {
                                   </tbody>
                               </table>
                           </div>
-                              <div className='card p-5'>
+                              <div className='card p-5 h-32'>
                                   <ul>
                                       <li>
                                           <div className="pb-3 text-xl">

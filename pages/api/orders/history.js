@@ -9,9 +9,8 @@ const handler = async (req, res) => {
         return res.status(401).json({message: 'Error: signIn required'});
     }
     
-    const { user } = session;
     await db.connect();
-    const orders = await Order.find({ user: user._id });
+    const orders = await Order.find({ user: session._id });
     await db.disconnect();
 
     res.status(200).json({ orders }); 

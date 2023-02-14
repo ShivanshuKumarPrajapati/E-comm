@@ -15,7 +15,7 @@ const handler = async (req, res) => {
             await db.disconnect();
             return res.status(400).send('Error: Order already paid');
         }
-
+        console.log(req.body);
         order.isPaid = true;
         order.paidAt = Date.now();
         order.paymentResult = {
