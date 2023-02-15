@@ -1,5 +1,4 @@
 import Layout from '../components/Layout'
-import data from '../utils/data'
 import ProductItem from '../components/ProductItem'
 import db from '../utils/db';
 import Product from '../models/Product';
